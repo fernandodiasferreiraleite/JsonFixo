@@ -1,6 +1,7 @@
 package com.example.diego.jsonproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,5 +21,10 @@ public class MainActivity extends Activity {
     public void loadJSON(View v){
         Album album = Util.convertJSONtoAlbum(Util.rawToJson(getResources().openRawResource(R.raw.teste)));
         textJSON.setText(album.toString());
+    }
+
+    public void novaTela(View v){
+        Intent intent = new Intent(MainActivity.this,JSONActivity.class);
+        startActivity(intent);
     }
 }

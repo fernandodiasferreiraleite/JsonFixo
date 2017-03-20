@@ -49,6 +49,32 @@ public class Util {
     }
 
     /**
+     *Lê um arquivo da web via HTTP e converte o mesmo em String.
+     *@param inputStream Stream do arquivo local no aplicativo
+     *@return O arquivo convertido em String.
+     */
+    public static String webToString(InputStream inputStream) {
+        InputStream localStream = inputStream;
+        String localString = "";
+        Writer writer = new StringWriter();
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(localStream, "UTF-8"));
+            String line = reader.readLine();
+            while (line != null) {
+                writer.write(line);
+                line = reader.readLine();
+            }
+            localString = writer.toString();
+            writer.close();
+            reader.close();
+            localStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return localString;
+    }
+    /**
      *Lê um arquivo da pasta raw (Resources) e converte o mesmo em String.
      *@param jsonFile Arquivo JSON com os dados a serem convertidos
      *@return Os dados adicionados na classe Album.
@@ -58,6 +84,7 @@ public class Util {
         try {
             novoAlbum = new Album();
             List<Faixa> faixas = new ArrayList<>();
+
             JSONObject mainObject = new JSONObject(jsonFile);
             String banda = mainObject.getString("Banda");
             String album = mainObject.getString("Album");
