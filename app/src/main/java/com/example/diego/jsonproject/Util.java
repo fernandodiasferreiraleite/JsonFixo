@@ -108,4 +108,51 @@ public class Util {
         }
         return novoAlbum;
     }
+
+
+    public static Filme JSONtoFilme(String jsonString){
+        try {
+            Filme filme = new Filme();
+            JSONObject mainObj = new JSONObject (jsonString);
+            filme.getTitulo(mainObj.getJSONObject("Title"));
+            filme.setTitulo("Titanic");
+            return filme;
+
+        }catch (Exception e){
+            Log.e("Error","Error",e);
+            return  null;
+        }
+    }
+
+
+
+
+
+    public static Previsao JSONtoPrevisao(String jsonString){
+
+        try{
+            Previsao previsao = new Previsao();
+
+            JSONObject mainObj = new JSONObject(jsonString);
+
+            previsao.setCidade(mainObj.getJSONObject("city").getString("name"));
+
+
+            JSONArray listaTempo = mainObj.getJSONArray("list");
+
+            double temperatura = listaTempo.getJSONObject(0).getJSONObject("temp").getDouble("day");
+
+            previsao.setTemperatura(temperatura);
+
+
+
+            return  previsao;
+
+        }catch (Exception e){
+            Log.e("Error","Error",e);
+            return null;
+        }
+
+    }
+
 }

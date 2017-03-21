@@ -25,9 +25,15 @@ public class JSONActivity extends Activity {
         textJSON = (TextView) findViewById(R.id.textJSON);
     }
 
+
+
     public void conectar(View v){
         new DownloadFromOpenWeather().execute();
     }
+
+
+
+
 
     private class DownloadFromOpenWeather extends AsyncTask<Void, Void, String> {
 
@@ -35,15 +41,21 @@ public class JSONActivity extends Activity {
         protected String doInBackground(Void... params) {
             HttpURLConnection urlConnection = null;
             try {
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=Curitiba&mode=json&units=metric&cnt=1&appid=440b84a8027be4fcf90f9b83e4b45aa9");
+
+
+                URL url = new URL("http://www.omdbapi.com/?t=carros");
+                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=Curitiba&mode=json&units=metric&cnt=1&appid=440b84a8027be4fcf90f9b83e4b45aa9");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
+
                 urlConnection.setRequestMethod("GET");
+
                 urlConnection.connect();
 
                 String result = Util.webToString(urlConnection.getInputStream());
 
                 return result;
+
             } catch (Exception e) {
                 Log.e("Error", "Error ", e);
                 return null;
@@ -57,6 +69,16 @@ public class JSONActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            Filme filme = Util.JSONtoFilme(s);
+
+            //Previsao previsao = Util.JSONtoPrevisao(s);
+           // if(previsao != null){
+            //    String data="Cidade: "+previsao.getCidade()+ "\n";
+           //     data += "Temperatura: " + previsao.getTemperatura();
+          //      textJSON.setText(data);
+          //  }
+
             textJSON.setText(s);
         }
     }
