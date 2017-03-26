@@ -57,7 +57,7 @@ public class Album {
     @Override
     public String toString() {
         return "Album: \n" +
-                "nomeBanda=" + nomeBanda + "\n" +
+                "nomeBanda = " + nomeBanda + "\n" +
                 "nomeAlbum=" + nomeAlbum + "\n" +
                 "anoAlbum=" + anoAlbum + "\n" +
                 "faixas=" + faixas;
